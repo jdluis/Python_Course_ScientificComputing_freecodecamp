@@ -6,9 +6,16 @@ def print_expenses(expenses):
         print(f'Amount: {expense["amount"]}, Category: {expense["category"]}')
 
 def print_all_category(expenses):
-     print('Categorys: ')
-     for category in expenses:
-        print(category["category"])
+    print('Categorys: ')
+    category_list = []
+
+    for expense in expenses:
+        category = expense["category"]
+
+        if category not in category_list:
+            category_list.append(category)
+            
+    print(', '.join(category_list))
     
 def total_expenses(expenses):
     return sum(map(lambda expense: expense['amount'], expenses))
@@ -17,14 +24,20 @@ def filter_expenses_by_category(expenses, category):
     return filter(lambda expense: expense['category'] == category, expenses)
 
 def main():
-    expenses = []
+    expenses = [
+        {"amount": 5 , "category": "ocio" },
+        {"amount": 14 , "category": "ocio"},
+        {"amount": 20 , "category": "food"},
+        {"amount": 80 , "category": "food"},
+        {"amount": 23 , "category": "transport"}
+        ]
     while True:
         print('\nExpense Tracker')
         print('1. Add an expense')
         print('2. List all expenses')
         print('3. Show total expenses')
         print('4. Filter expenses by category')
-        print('5. Show all categorys added')
+        print('5. Show all categorys')
         print('6. Exit')
         
         choice = input('Enter your choice: ')
